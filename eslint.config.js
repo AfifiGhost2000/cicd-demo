@@ -13,15 +13,16 @@ module.exports = [
       'dist/**'
     ]
   },
+
   js.configs.recommended,
+
+  // Node-specific files
   {
     files: ['app.js', 'jest.setup.js'],
     languageOptions: {
       ecmaVersion: 2018,
       sourceType: 'commonjs',
-      globals: {
-        ...globals.node
-      }
+      globals: { ...globals.node }
     },
     rules: {
       'indent': ['error', 2],
@@ -31,35 +32,26 @@ module.exports = [
       'eqeqeq': 'error',
       'no-trailing-spaces': 'error',
       'object-curly-spacing': ['error', 'always'],
-      'arrow-spacing': ['error', { 'before': true, 'after': true }],
+      'arrow-spacing': ['error', { before: true, after: true }],
       'no-console': 0
     }
   },
+
+  // React + Jest
   {
     files: ['src/**/*.{js,jsx}', 'test/**/*.{js,jsx}'],
-    plugins: {
-      react,
-      jest
-    },
+    plugins: { react, jest },
     languageOptions: {
       ecmaVersion: 2018,
       sourceType: 'module',
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true
-        }
-      },
+      parserOptions: { ecmaFeatures: { jsx: true } },
       globals: {
         ...globals.browser,
         ...globals.es6,
         ...globals.jest
       }
     },
-    settings: {
-      react: {
-        version: 'detect'
-      }
-    },
+    settings: { react: { version: 'detect' } },
     rules: {
       ...react.configs.recommended.rules,
       'indent': ['error', 2],
@@ -69,9 +61,24 @@ module.exports = [
       'eqeqeq': 'error',
       'no-trailing-spaces': 'error',
       'object-curly-spacing': ['error', 'always'],
-      'arrow-spacing': ['error', { 'before': true, 'after': true }],
+      'arrow-spacing': ['error', { before: true, after: true }],
       'no-console': 'error',
       'react/prop-types': 0
+    }
+  },
+
+  // ⭐ Playwright overrides (the missing piece)
+  {
+    files: ['playwright.config.js', 'e2e-tests/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      sourceType: 'module',
+      globals: {
+        ...globals.node
+      }
+    },
+    rules: {
+      'no-undef': 'off'
     }
   }
 ]
