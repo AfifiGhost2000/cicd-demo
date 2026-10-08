@@ -5,6 +5,14 @@ module.exports = {
     "es6": true,
     "jest/globals": true
   },
+  "overrides": [
+    {
+      "files": ["playwright.config.js", "e2e-tests/**/*.js"],
+      "env": {
+        "node": true
+      }
+    }
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended"
